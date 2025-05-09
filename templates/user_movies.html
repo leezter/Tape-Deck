@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Movies</title>
+</head>
+<body>
+    <h1>{{ user.name }}'s Favorite Movies</h1>
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <strong>{{ movie.name }}</strong> ({{ movie.year }}) - Directed by {{ movie.director }}
+                <br>Rating: {{ movie.rating }}
+                <br>
+                {% if movie.cover_image %}
+                    <img src="{{ movie.cover_image }}" alt="{{ movie.name }} cover" style="max-width: 200px;">
+                {% endif %}
+                <br>
+                <a href="/users/{{ user.id }}/update_movie/{{ movie.id }}">Edit</a> |
+                <form method="POST" action="/users/{{ user.id }}/delete_movie/{{ movie.id }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/users/{{ user.id }}/add_movie">Add a New Movie</a>
+</body>
+</html>

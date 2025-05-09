@@ -17,6 +17,7 @@ class Movie(db.Model):
     year = Column(Integer, nullable=False)
     rating = Column(Float, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    cover_image = Column(String, nullable=True)
 
 class SQLiteDataManager(DataManagerInterface):
     def __init__(self, db_file_name):
@@ -32,6 +33,10 @@ class SQLiteDataManager(DataManagerInterface):
         except Exception as e:
             print(f"Error retrieving users: {e}")
             return []
+
+    def list_all_users(self):
+        """Alias for get_all_users to match route naming."""
+        return self.get_all_users()
 
     def get_user_movies(self, user_id):
         """Retrieve all movies for a specific user by their ID."""
