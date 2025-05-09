@@ -19,7 +19,7 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return "Welcome to Tape Deck!"
+    return render_template('home.html')
 
 
 @app.route('/users')

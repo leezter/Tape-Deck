@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Replace with a cool font like Google Fonts later */
+    background-color: #1c1c1c; /* Black background */
+    color: white; /* White text */
+    margin: 0;
+    padding: 0;
+    font-size: 18px; /* Large font size */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Arial Black', sans-serif; /* Bold and cool font */
+    color: #ff0000; /* Red headings */
+}
+
+/* Buttons */
+button {
+    background-color: #ff0000; /* Red background */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Links */
+a {
+    color: #ff0000; /* Red links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Forms */
+form {
+    background-color: #2c2c2c; /* Dark grey background */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th, table td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #333;
+    color: #ff0000; /* Red table headers */
+}
+
+/* Style lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+/* Style images */
+img {
+    display: block;
+    margin: 10px auto;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}

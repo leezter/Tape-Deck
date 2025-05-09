@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ user.name }}'s Movies</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
 </head>
 <body>
+    <a href="/" class="button" style="position: absolute; top: 10px; left: 10px; font-size: 20px; padding: 10px 20px;">Home</a>
     <h1>{{ user.name }}'s Favorite Movies</h1>
-    <ul>
+    <a href="/users/{{ user.id }}/add_movie" class="button" style="font-size: 20px; padding: 10px 20px; margin-bottom: 20px; display: inline-block;">Add New Movie</a>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
         {% for movie in movies %}
-            <li>
-                <strong>{{ movie.name }}</strong> ({{ movie.year }}) - Directed by {{ movie.director }}
-                <br>Rating: {{ movie.rating }}
-                <br>
+            <div style="border: 1px solid #444; padding: 10px; text-align: center;">
+                <strong>{{ movie.name }}</strong> ({{ movie.year }})<br>
+                Directed by {{ movie.director }}<br>
+                Rating: {{ movie.rating }}<br>
                 {% if movie.cover_image %}
-                    <img src="{{ movie.cover_image }}" alt="{{ movie.name }} cover" style="max-width: 200px;">
+                    <img src="{{ movie.cover_image }}" alt="{{ movie.name }} cover" style="max-width: 100%; height: auto;">
                 {% endif %}
                 <br>
                 <a href="/users/{{ user.id }}/update_movie/{{ movie.id }}">Edit</a> |
-                <form method="POST" action="/users/{{ user.id }}/delete_movie/{{ movie.id }}" style="display:inline;">
+                <form action="/users/{{ user.id }}/delete_movie/{{ movie.id }}" method="POST" style="display: inline;">
                     <button type="submit">Delete</button>
                 </form>
-            </li>
+            </div>
         {% endfor %}
-    </ul>
-    <a href="/users/{{ user.id }}/add_movie">Add a New Movie</a>
+    </div>
 </body>
 </html>

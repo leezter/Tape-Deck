@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tape Deck</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Tape Deck</h1>
+            <nav>
+                <a href="/">Home</a> |
+                <a href="/users">Users</a>
+            </nav>
+        </header>
+        <main>
+            <!-- Content will be injected here -->
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2025 Tape Deck</p>
+        </footer>
+    </div>
+</body>
+</html>
