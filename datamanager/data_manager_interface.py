@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class DataManagerInterface(ABC):
     @abstractmethod
     def get_all_users(self):
@@ -8,12 +9,14 @@ class DataManagerInterface(ABC):
         """
         pass
 
+
     @abstractmethod
     def get_user_movies(self, user_id):
         """
         Retrieve all movies for a specific user by their ID.
         """
         pass
+
 
     @abstractmethod
     def add_user(self, user):
@@ -22,6 +25,7 @@ class DataManagerInterface(ABC):
         """
         pass
 
+
     @abstractmethod
     def add_movie(self, movie):
         """
@@ -29,12 +33,14 @@ class DataManagerInterface(ABC):
         """
         pass
 
+
     @abstractmethod
     def update_movie(self, movie):
         """
         Update the details of a specific movie in the data source.
         """
         pass
+
 
     @abstractmethod
     def delete_movie(self, movie_id):

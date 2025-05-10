@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for
 from datamanager.data_manager import SQLiteDataManager, User, Movie, db
 import requests
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -19,17 +22,32 @@ with app.app_context():
 
 @app.route('/')
 def home():
+    """
+    Render the home page of the application.
+    """
     return render_template('home.html')
 
 
 @app.route('/users')
 def list_users():
+    """
+    Display a list of all users.
+    """
     users = data_manager.list_all_users()
     return render_template('users.html', users=users)
 
 
 @app.route('/users/<int:user_id>')
 def user_movies(user_id):
+    """
+    Display all movies associated with a specific user.
+
+    Args:
+        user_id (int): The ID of the user.
+
+    Returns:
+        Rendered template for the user's movies or a 404 error page if the user is not found.
+    """
     user = next((u for u in data_manager.list_all_users() if u.id == user_id), None)
     if not user:
         return render_template('404.html'), 404
@@ -40,6 +58,12 @@ def user_movies(user_id):
 
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
+    """
+    Add a new user to the application.
+
+    Returns:
+        Rendered template for adding a user or redirects to the users list after adding.
+    """
     if request.method == 'POST':
         name = request.form.get('name')
         if name:
@@ -50,6 +74,15 @@ def add_user():
 
 @app.route('/users/<int:user_id>/add_movie', methods=['GET', 'POST'])
 def add_movie(user_id):
+    """
+    Add a new movie for a specific user.
+
+    Args:
+        user_id (int): The ID of the user.
+
+    Returns:
+        Rendered template for adding a movie or redirects to the user's movies list after adding.
+    """
     user = next((u for u in data_manager.list_all_users() if u.id == user_id), None)
     if not user:
         return render_template('404.html'), 404
@@ -63,7 +96,7 @@ def add_movie(user_id):
 
             if name:
                 # Fetch movie details from OMDb API
-                api_key = "45ce7064"  # Replace with your actual OMDb API key
+                api_key = os.getenv("OMDB_API_KEY")  # Load API key from .env file
                 response = requests.get(f"http://www.omdbapi.com/?t={name}&apikey={api_key}")
                 response.raise_for_status()
                 movie_data = response.json()
@@ -96,6 +129,16 @@ def add_movie(user_id):
 
 @app.route('/users/<int:user_id>/update_movie/<int:movie_id>', methods=['GET', 'POST'])
 def update_movie(user_id, movie_id):
+    """
+    Update the details of a specific movie for a user.
+
+    Args:
+        user_id (int): The ID of the user.
+        movie_id (int): The ID of the movie to update.
+
+    Returns:
+        Rendered template for updating a movie or redirects to the user's movies list after updating.
+    """
     user = next((u for u in data_manager.list_all_users() if u.id == user_id), None)
     if not user:
         return "User not found", 404
@@ -118,6 +161,16 @@ def update_movie(user_id, movie_id):
 
 @app.route('/users/<int:user_id>/delete_movie/<int:movie_id>', methods=['POST'])
 def delete_movie(user_id, movie_id):
+    """
+    Delete a specific movie for a user.
+
+    Args:
+        user_id (int): The ID of the user.
+        movie_id (int): The ID of the movie to delete.
+
+    Returns:
+        Redirects to the user's movies list after deletion.
+    """
     user = next((u for u in data_manager.list_all_users() if u.id == user_id), None)
     if not user:
         return "User not found", 404
@@ -132,6 +185,15 @@ def delete_movie(user_id, movie_id):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Render the custom 404 error page.
+
+    Args:
+        e: The error object.
+
+    Returns:
+        Rendered 404 error page.
+    """
     return render_template('404.html'), 404
 
 
